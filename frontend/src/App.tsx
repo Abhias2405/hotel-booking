@@ -1,15 +1,20 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './layouts/Layout';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout>
+          <p>Home Page</p>
+        </Layout>} />
+        <Route path="/search" element={<Layout>
+              Search Page
+            </Layout>} />
+        <Route path="/search" element={<Navigate to="/"/>} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
