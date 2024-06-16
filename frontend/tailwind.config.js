@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#4F46E5", // Indigo
-        secondary: "#6366F1", // Light Indigo
-        accent: "#EC4899", // Pink Accent
+        primary: "#4F46E5",
+        secondary: "#6366F1",
+        accent: "#EC4899",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
@@ -16,6 +16,7 @@ export default {
         padding: {
           DEFAULT: "1rem",
           lg: "2rem",
+          md: "10rem",
         },
       },
     },
