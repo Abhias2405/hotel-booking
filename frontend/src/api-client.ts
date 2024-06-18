@@ -16,3 +16,7 @@ export const register = async (formData: RegisterFormData) => {
       throw new Error(responseBody.message);
     }
   };
+
+export function validateToken(arg0: string, validateToken: any, arg2: { retry: false; }): { isError: any; } {
+    throw new Error("Function not implemented.");
+}
