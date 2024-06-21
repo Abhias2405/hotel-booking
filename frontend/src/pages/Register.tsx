@@ -1,116 +1,132 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
+
 export type RegisterFormData = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 };
 
 const Register = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { showToast } = useAppContext();
 
-    const navigate = useNavigate();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>();
 
-    const {showToast} = useAppContext();
-    const { register, watch, handleSubmit, formState: { errors }, } = useForm<RegisterFormData>();
+  const mutation = useMutation(apiClient.register, {
+    onSuccess: async () => {
+      showToast({ message: "Registration Success!", type: "SUCCESS" });
+      await queryClient.invalidateQueries("validateToken");
+      navigate("/");
+    },
+    onError: (error: Error) => {
+      showToast({ message: error.message, type: "ERROR" });
+    },
+  });
 
+  const onSubmit = handleSubmit((data) => {
+    mutation.mutate(data);
+  });
 
-    const mutation = useMutation(apiClient.register, {
-        onSuccess: async () => {
-          console.log("sucessfull")
-          showToast({message: "Registration Success!!", type:"SUCCESS"});
-          navigate("/");
-        },
-        onError: (error: Error) => {
-            console.log(error.message)
-            showToast({message:error.message, type:"ERROR"});
-        },
-      });
-
-
-    const onSubmit = handleSubmit((data) => {
-        mutation.mutate(data);
-      });
-
-    return (
-        <form className="flex flex-col gap-8 p-6 bg-white shadow-lg rounded-lg max-w-lg mx-auto" onSubmit={onSubmit}>
-            <h2 className="text-4xl font-extrabold text-primary text-center">Create an Account</h2>
-            <div className="flex flex-col md:flex-row gap-6">
-                <label className="flex-1">
-                    <span className="text-gray-700 text-sm font-semibold">First Name</span>
-                    <input 
-                        className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:ring-2 focus:ring-primary focus:outline-none" 
-                        {...register("firstName", { required: "This field is required" })} 
-                        placeholder="Enter your first name"
-                    />
-                    {errors.firstName && (<span className="text-red-500">{errors.firstName.message}</span>)}
-                </label>
-                <label className="flex-1">
-                    <span className="text-gray-700 text-sm font-semibold">Last Name</span>
-                    <input 
-                        className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:ring-2 focus:ring-primary focus:outline-none" 
-                        {...register("lastName", { required: "This field is required" })} 
-                        placeholder="Enter your last name"
-                    />
-                    {errors.lastName && (<span className="text-red-500">{errors.lastName.message}</span>)}
-                </label>
-            </div>
-            <label className="flex flex-col">
-                <span className="text-gray-700 text-sm font-semibold">Email</span>
-                <input 
-                    type="email" 
-                    className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:ring-2 focus:ring-primary focus:outline-none" 
-                    {...register("email", { required: "This field is required" })} 
-                    placeholder="Enter your email"
-                />
-                {errors.email && (<span className="text-red-500">{errors.email.message}</span>)}
-            </label>
-            <label className="flex flex-col">
-                <span className="text-gray-700 text-sm font-semibold">Password</span>
-                <input
-                    type="password"
-                    className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:ring-2 focus:ring-primary focus:outline-none"
-                    {...register("password", {
-                        required: "This field is required",
-                        minLength: {
-                            value: 6,
-                            message: "Password must be at least 6 characters",
-                        },
-                    })}
-                    placeholder="Enter your password"
-                />
-                {errors.password && (<span className="text-red-500">{errors.password.message}</span>)}
-            </label>
-            <label className="flex flex-col">
-                <span className="text-gray-700 text-sm font-semibold">Confirm Password</span>
-                <input
-                    type="password"
-                    className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:ring-2 focus:ring-primary focus:outline-none"
-                    {...register("confirmPassword", {
-                        validate: (val) => {
-                            if (!val) {
-                                return "This field is required";
-                            } else if (watch("password") !== val) {
-                                return "Your passwords do not match";
-                            }
-                        },
-                    })}
-                    placeholder="Confirm your password"
-                />
-                {errors.confirmPassword && (<span className="text-red-500">{errors.confirmPassword.message}</span>)}
-            </label>
-            <button
-                type="submit"
-                className="w-full py-3 bg-primary text-white font-bold text-lg rounded-lg hover:bg-secondary transition-all focus:outline-none focus:ring-2 focus:ring-secondary"
-            >
-                Create Account
-            </button>
-        </form>
-    );
+  return (
+    <form
+      className="max-w-lg mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-lg"
+      onSubmit={onSubmit}
+    >
+      <h2 className="text-3xl font-bold mb-6 text-center">Create an Account</h2>
+      <div className="flex flex-col md:flex-row gap-4">
+        <label className="flex-1">
+          <span className="block text-sm font-semibold mb-1">First Name</span>
+          <input
+            className="w-full border border-gray-600 rounded-lg py-2 px-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            {...register("firstName", { required: "This field is required" })}
+          />
+          {errors.firstName && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.firstName.message}
+            </p>
+          )}
+        </label>
+        <label className="flex-1">
+          <span className="block text-sm font-semibold mb-1">Last Name</span>
+          <input
+            className="w-full border border-gray-600 rounded-lg py-2 px-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            {...register("lastName", { required: "This field is required" })}
+          />
+          {errors.lastName && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.lastName.message}
+            </p>
+          )}
+        </label>
+      </div>
+      <label className="block mt-4">
+        <span className="block text-sm font-semibold mb-1">Email</span>
+        <input
+          type="email"
+          className="w-full border border-gray-600 rounded-lg py-2 px-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          {...register("email", { required: "This field is required" })}
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+        )}
+      </label>
+      <label className="block mt-4">
+        <span className="block text-sm font-semibold mb-1">Password</span>
+        <input
+          type="password"
+          className="w-full border border-gray-600 rounded-lg py-2 px-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          {...register("password", {
+            required: "This field is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+          })}
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+        )}
+      </label>
+      <label className="block mt-4">
+        <span className="block text-sm font-semibold mb-1">Confirm Password</span>
+        <input
+          type="password"
+          className="w-full border border-gray-600 rounded-lg py-2 px-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          {...register("confirmPassword", {
+            validate: (val) =>
+              !val
+                ? "This field is required"
+                : watch("password") !== val
+                ? "Your passwords do not match"
+                : undefined,
+          })}
+        />
+        {errors.confirmPassword && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.confirmPassword.message}
+          </p>
+        )}
+      </label>
+      <button
+        type="submit"
+        className="w-full mt-6 py-2 bg-accent  hover:bg-hover  rounded-lg font-bold text-xl text-white transition duration-300"
+      >
+        Create Account
+      </button>
+    </form>
+  );
 };
 
 export default Register;

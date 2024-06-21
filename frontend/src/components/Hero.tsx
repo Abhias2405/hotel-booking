@@ -1,19 +1,16 @@
-const Hero = () => {
-    return (
-      <div className="bg-gradient-to-r from-primary to-secondary pb-16">
-        <div className="container mx-auto flex flex-col items-center text-center gap-4 py-16">
-          <h1 className="text-6xl text-white font-extrabold leading-tight drop-shadow-md">
-            Find Your Next Stay
-          </h1>
-          <p className="text-xl text-white opacity-90 max-w-2xl">
-            Discover low prices on hotels for your dream vacation with ease.
-          </p>
-          <button className="mt-6 px-8 py-4 bg-accent text-white font-bold rounded-full shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105">
-            Start Searching
-          </button>
-        </div>
+const Hero = () => { 
+  return (
+    <section className="bg-primary pb-16 text-center lg:text-left">
+      <div className="container mx-auto flex flex-col gap-4 px-4 lg:px-0">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl text-white font-heading font-bold leading-tight">
+          Find your next stay
+        </h1>
+        <p className="text-xl sm:text-2xl text-secondary font-body">
+          Search low prices on hotels for your dream vacation...
+        </p>
       </div>
-    );
-  };
-  
-  export default Hero;
+    </section>
+  );
+};
+
+export default Hero;

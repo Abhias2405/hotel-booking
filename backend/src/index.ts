@@ -10,7 +10,10 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string); // when we im
 const app = express();
 app.use(express.json()); // convert the body of api request in json
 app.use(express.urlencoded({extended: true})); //parse  the URL to get the create parameters
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }));
 
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes);
