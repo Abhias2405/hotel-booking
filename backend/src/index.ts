@@ -1,23 +1,30 @@
-import express, {Request, Response} from 'express';
-import cors from 'cors';
+import express, { Request, Response } from "express";
+import cors from "cors";
 import "dotenv/config";
-import mongoose from 'mongoose';
-import userRoutes from './routes/users'
-import authRoutes from './routes/auth'
+import mongoose from "mongoose";
+import userRoutes from "./routes/users";
+import authRoutes from "./routes/auth";
+import cookieParser from "cookie-parser";
+import path from "path";
 
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string); // when we import form env it is undefine so we use string
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
 
 const app = express();
-app.use(express.json()); // convert the body of api request in json
-app.use(express.urlencoded({extended: true})); //parse  the URL to get the create parameters
-app.use(cors({
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
-  }));
+  })
+);
 
-app.use("/api/auth", authRoutes)
+
+
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(7000,()=>{
-    console.log("server is running at localhost 7000")
-})
+app.listen(7000, () => {
+  console.log("server running on localhost:7000");
+});
