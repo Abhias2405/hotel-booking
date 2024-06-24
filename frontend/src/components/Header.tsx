@@ -8,12 +8,12 @@ const Header = () => {
   return (
     <header className="bg-primary shadow-lg">
       <div className="container mx-auto flex justify-between items-center py-6 px-4 lg:px-0">
-        <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white">
+        <h1 className="text-2xl sm:text-3xl font-heading font-bold text-secondary">
           <Link
             to="/"
             className="hover:text-accent transition duration-300"
           >
-            MernHolidays.com
+            Roomify
           </Link>
         </h1>
         <nav className="flex space-x-4 text-sm sm:text-base">
@@ -21,13 +21,13 @@ const Header = () => {
             <>
               <Link
                 to="/my-bookings"
-                className="text-secondary font-body font-medium px-4 py-2 rounded-lg hover:bg-hover hover:text-white transition duration-300"
+                className="text-secondary font-body font-medium px-4 py-2 rounded-lg hover:bg-accent hover:text-white transition duration-300"
               >
                 My Bookings
               </Link>
               <Link
                 to="/my-hotels"
-                className="text-secondary font-body font-medium px-4 py-2 rounded-lg hover:bg-hover hover:text-white transition duration-300"
+                className="text-secondary font-body font-medium px-4 py-2 rounded-lg hover:bg-accent hover:text-white transition duration-300"
               >
                 My Hotels
               </Link>

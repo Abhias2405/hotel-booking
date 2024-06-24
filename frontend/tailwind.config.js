@@ -4,13 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#1A202C",
-        secondary: "#4A5568",
+        primary: "#F5E6D3",
+        secondary: "#2C3E50",
         accent: "#38B2AC",
         hover: "#319795",
-        background: "#F7FAFC",
-        'dark-900': '#1a1a1a',
-        'dark-800': '#2a2a2a',
+        background: "#F1F2F6",
+        'dark-900': "#E8E8E8",
+        'dark-800': "#F5F5F5",
       },
       fontFamily: {
         body: ['"Inter"', "sans-serif"],
