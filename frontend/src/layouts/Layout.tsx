@@ -1,6 +1,7 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
+import SearchBar from "../components/SearchBar";
 
 interface Props {
   children: React.ReactNode;
@@ -19,6 +20,9 @@ const Layout = ({ children, heroContent }: Props) => {
       ) : (
         <Hero />
       )}
+      <div className="container mx-auto">
+        <SearchBar />
+      </div>
       <main className="container mx-auto py-10 flex-1 px-4 md:px-6 bg-white rounded-lg shadow-md">
         {children}
       </main>
