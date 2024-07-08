@@ -49,7 +49,7 @@ const Register = () => {
     <label className="flex-1">
       <span className="block text-sm font-semibold mb-1">First Name</span>
       <input
-        className="w-full border border-dark-800 rounded-lg py-2 px-3 text-dark-900 focus:ring-2 focus:ring-accent focus:outline-none"
+        className="w-full border border-dark-800 rounded-lg py-2 px-3 text-secondary focus:ring-2 focus:ring-accent focus:outline-none"
         {...register("firstName", { required: "This field is required" })}
       />
       {errors.firstName && (
@@ -59,7 +59,7 @@ const Register = () => {
     <label className="flex-1">
       <span className="block text-sm font-semibold mb-1">Last Name</span>
       <input
-        className="w-full border border-dark-800 rounded-lg py-2 px-3 text-dark-900 focus:ring-2 focus:ring-accent focus:outline-none"
+        className="w-full border border-dark-800 rounded-lg py-2 px-3 text-secondary focus:ring-2 focus:ring-accent focus:outline-none"
         {...register("lastName", { required: "This field is required" })}
       />
       {errors.lastName && (
@@ -71,7 +71,7 @@ const Register = () => {
     <span className="block text-sm font-semibold mb-1">Email</span>
     <input
       type="email"
-      className="w-full border border-dark-800 rounded-lg py-2 px-3 text-dark-900 focus:ring-2 focus:ring-accent focus:outline-none"
+      className="w-full border border-dark-800 rounded-lg py-2 px-3 text-secondary focus:ring-2 focus:ring-accent focus:outline-none"
       {...register("email", { required: "This field is required" })}
     />
     {errors.email && (
@@ -82,7 +82,7 @@ const Register = () => {
     <span className="block text-sm font-semibold mb-1">Password</span>
     <input
       type="password"
-      className="w-full border border-dark-800 rounded-lg py-2 px-3 text-dark-900 focus:ring-2 focus:ring-accent focus:outline-none"
+      className="w-full border border-dark-800 rounded-lg py-2 px-3 text-secondary focus:ring-2 focus:ring-accent focus:outline-none"
       {...register("password", {
         required: "This field is required",
         minLength: { value: 6, message: "Password must be at least 6 characters" },
@@ -96,7 +96,7 @@ const Register = () => {
     <span className="block text-sm font-semibold mb-1">Confirm Password</span>
     <input
       type="password"
-      className="w-full border border-dark-800 rounded-lg py-2 px-3 text-dark-900 focus:ring-2 focus:ring-accent focus:outline-none"
+      className="w-full border border-dark-800 rounded-lg py-2 px-3 text-secondary focus:ring-2 focus:ring-accent focus:outline-none"
       {...register("confirmPassword", {
         validate: (val) =>
           !val
