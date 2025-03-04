@@ -31,7 +31,7 @@ const SearchBar = () => {
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
-  const numberInputClass = "w-16 text-center text-lg font-bold text-secondary focus:outline-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none";
+  const numberInputClass = "w-full text-center text-lg font-bold text-secondary focus:outline-none [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none";
 
   return (
     <form
@@ -78,7 +78,6 @@ const SearchBar = () => {
                   onChange={(event) => setChildCount(parseInt(event.target.value))}
                 />
               </label>
-              
             </div>
           </div>
 

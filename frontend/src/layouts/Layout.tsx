@@ -20,10 +20,10 @@ const Layout = ({ children, heroContent }: Props) => {
       ) : (
         <Hero />
       )}
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <SearchBar />
       </div>
-      <main className="container mx-auto py-10 flex-1 px-4 md:px-6 bg-white rounded-lg shadow-md">
+      <main className="container mx-auto py-10 flex-1 px-4 md:px-6 lg:px-8 bg-white rounded-lg shadow-md">
         {children}
       </main>
       <Footer />
